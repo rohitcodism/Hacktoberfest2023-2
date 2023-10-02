@@ -1,25 +1,41 @@
-# bubble sort using python
+# merge sort using python
 
-def bubble_sort(arr):
-    n = len(arr)
-    for i in range(n):
-        # Flag to optimize the algorithm
-        swapped = False
-        
-        # Last i elements are already in place, so we don't need to compare them
-        for j in range(0, n-i-1):
-            if arr[j] > arr[j+1]:
-                # Swap arr[j] and arr[j+1]
-                arr[j], arr[j+1] = arr[j+1], arr[j]
-                swapped = True
-        
-        # If no two elements were swapped in the inner loop, the array is already sorted
-        if not swapped:
-            break
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2  # Find the middle of the array
+        left_half = arr[:mid]  # Split the array into two halves
+        right_half = arr[mid:]
+
+        # Recursive call on each half
+        merge_sort(left_half)
+        merge_sort(right_half)
+
+        i = j = k = 0
+
+        # Merge the two halves back together
+        while i < len(left_half) and j < len(right_half):
+            if left_half[i] < right_half[j]:
+                arr[k] = left_half[i]
+                i += 1
+            else:
+                arr[k] = right_half[j]
+                j += 1
+            k += 1
+
+        # Check if any element was left
+        while i < len(left_half):
+            arr[k] = left_half[i]
+            i += 1
+            k += 1
+
+        while j < len(right_half):
+            arr[k] = right_half[j]
+            j += 1
+            k += 1
 
 # Example usage:
 arr = [64, 34, 25, 12, 22, 11, 90]
 print("Original array:", arr)
-bubble_sort(arr)
+merge_sort(arr)
 print("Sorted array:", arr)
 
